@@ -1,6 +1,5 @@
 import RandomColorButton from './components/TestComp'
 
-
 export default function Home() {
   return (
 
