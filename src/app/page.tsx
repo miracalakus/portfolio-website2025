@@ -1,10 +1,16 @@
-import RandomColorButton from './components/TestComp'
+import Introduction from './components/Intro';
+import ProjectCard from './components/ProjectCard';
 
 export default function Home() {
   return (
 
-    <div className="flex items-center justify-center min-h-screen">
-      <RandomColorButton/>
+    <div>
+      <div className='h-screen'>
+      <Introduction/>
+      </div>
+      <div>
+      <ProjectCard/>
+      </div>
     </div>
   );
 }
