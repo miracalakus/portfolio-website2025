@@ -46,7 +46,7 @@ export default function ProjectList() {
     priority={true}
   />
                 {/* Title Overlay */}
-                <div className="absolute inset-0 flex items-end p-4">
+                <div className="absolute inset-0 flex items-end p-4 hover:bg-purple-400">
                   <h2 className="font-subtitle text-white">{project.title}</h2>
                 </div>
               </div>
