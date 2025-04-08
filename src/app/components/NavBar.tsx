@@ -11,7 +11,7 @@ export default function Navbar() {
 
       {/* Navigation Links */}
       <div className="font-subtitle flex items-center space-x-6">
-        <Link href="/projects" className="hover:underline">
+        <Link href="#work" className="hover:underline">
           Projects
         </Link>
         <Link href="/about" className="hover:underline">
@@ -26,10 +26,10 @@ export default function Navbar() {
           <a href="https://github.com/miracalakus" target="_blank" rel="noopener noreferrer">
             <Github className="w-5 h-5 hover:text-gray-500" />
           </a>
-          <a href="miracalakus@gmail.com" target="_blank" rel="noopener noreferrer">
+          <a href="mailto: miracalakus@gmail.com" target="_blank" rel="noopener noreferrer">
             <Mail className="w-5 h-5 hover:text-gray-500" />
           </a>
-          <a href="https://linkedin.com/in/miracalakus" target="_blank" rel="noopener noreferrer">
+          <a href="https://www.linkedin.com/in/mirac-alakus" target="_blank" rel="noopener noreferrer">
             <Linkedin className="w-5 h-5 hover:text-gray-500" />
           </a>
         </div>

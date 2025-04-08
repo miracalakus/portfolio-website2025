@@ -31,7 +31,7 @@ export default function ProjectList() {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 gap-10 p-20">
+    <div id="work" className="grid grid-cols-2 gap-10 p-20">
       {projects.map((project) => (
         <Link key={project._id} href={`/project/${project.slug.current}`} passHref>
           <div className="relative group overflow-hidden shadow-lg">
@@ -46,7 +46,7 @@ export default function ProjectList() {
     priority={true}
   />
                 {/* Title Overlay */}
-                <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/70 to-transparent p-4">
+                <div className="absolute inset-0 flex items-end p-4">
                   <h2 className="font-subtitle text-white">{project.title}</h2>
                 </div>
               </div>
