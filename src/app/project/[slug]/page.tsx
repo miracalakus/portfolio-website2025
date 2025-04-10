@@ -3,6 +3,10 @@ import { urlFor } from "../../../sanity/lib/image";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
+interface ProjectPageProps {
+  params: { slug: string };
+}
+
 // Define the types for the images
 interface ImageAsset {
   asset: {
@@ -36,6 +40,8 @@ interface Project {
   };
 }
 
+
+
 // Fetch the project data from Sanity
 async function getProject(slug: string): Promise<Project | null> {
   const query = `*[_type == "project" && slug.current == $slug][0] {
@@ -66,11 +72,7 @@ const CategoryTitles: Record<string, string> = {
   motion_design: "Motion Design",
 };
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+export default async function ProjectPage({ params }: ProjectPageProps) {
   // Fetch the project by slug
   const project = await getProject(params.slug);
   if (!project) return notFound();
