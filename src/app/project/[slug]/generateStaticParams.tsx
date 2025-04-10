@@ -1,14 +1,12 @@
 import { client } from "../../../sanity/lib/client";
 
-interface ProjectSlug {
-  slug: {
-    current: string;
-  };
-}
-
 export async function generateStaticParams() {
-  const projects = await client.fetch<ProjectSlug[]>(`*[_type == "project"]{ slug }`);
-  return projects.map((project) => ({
-    slug: project.slug.current,
+  const query = `*[_type == "project"]{ "slug": slug.current }`;
+  const projects = await client.fetch(query);
+
+  return projects.map((project: { slug: string }) => ({
+    params: {
+      slug: project.slug,
+    },
   }));
 }

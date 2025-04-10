@@ -33,7 +33,16 @@ interface Project {
   };
 }
 
-async function getProject(slug: string): Promise<Project | null> {
+const CategoryTitles: Record<string, string> = {
+  dev: "Development",
+  ux_ui_design: "UX/UI Design",
+  motion_design: "Motion Design",
+};
+
+export default async function ProjectPage(props: { params: Promise<{ slug: string }> }) {
+  const { params } = props;
+  const { slug } = await params;
+
   const query = `*[_type == "project" && slug.current == $slug][0] {
     title,
     description,
@@ -51,25 +60,8 @@ async function getProject(slug: string): Promise<Project | null> {
     video
   }`;
 
-  const project = await client.fetch(query, { slug });
-  return project || null;
-}
+  const project: Project | null = await client.fetch(query, { slug });
 
-// Mapping of category slugs to category titles
-const CategoryTitles: Record<string, string> = {
-  dev: "Development",
-  ux_ui_design: "UX/UI Design",
-  motion_design: "Motion Design",
-};
-
-interface ProjectPageProps {
-  params: {
-    slug: string;
-  };
-}
-
-export default async function ProjectPage({ params }: ProjectPageProps) {
-  const project = await getProject(params.slug);
   if (!project) return notFound();
 
   const videoUrl: string | null = project.video?.asset?.url
@@ -170,4 +162,14 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
       )}
     </div>
   );
+}
+
+export async function generateStaticParams(): Promise<{ params: { slug: string } }[]> {
+  const projects = await client.fetch(`*[_type == "project"]{ "slug": slug.current }`);
+
+  return projects.map((project: { slug: string }) => ({
+    params: {
+      slug: project.slug,
+    },
+  }));
 }
