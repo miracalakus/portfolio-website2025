@@ -9,9 +9,9 @@ const TestComp: React.FC = () => {
   return (
   <button
   onClick={changeBackgroundColor}
-  className="btn btn-primary btn-primary-hover font-subtitle"
+  className="btn btn-primary btn-primary-hover font-subtitle cursor-pointer"
   >
-  Party!!!!!🥳🎉
+  Discooo!!!!!🥳🎉
   </button>
 
   );
