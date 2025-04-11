@@ -1,7 +1,11 @@
 @import "tailwindcss";
 
-.font-title {
+.font-secontitle {
   @apply [font-family:var(--font-montserrat)];
+}
+
+.font-title {
+  @apply [font-family:var(--font-dmserifdisplay)];
 }
 
 .font-subtitle {
@@ -29,9 +33,6 @@ body {
   --primary: #D35400;
   --secondary: #A1A1A1;
   
-  /* Fonts */
-  --font-title: "Poppins", sans-serif;
-  --font-text: "Inter", sans-serif;
 }
 
 /* Dark Mode */
@@ -46,6 +47,7 @@ body {
   }
 }
 
+
 /* Base Styles */
 @layer base {
   body {
@@ -55,18 +57,63 @@ body {
     transition: background-color 0.3s, color 0.3s;
   }
 
-  h1{
+  h1 {
     font-family: var(--font-title);
     font-weight: 700;
-    font-size: xxx-large;
+    font-size: 128px;
+  }
+  
+  /* Tablet */
+  @media (max-width: 1024px) {
+    h1 {
+      font-size: 96px;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 64px;
+    }
+  }
+  
+  /* Small Mobile */
+  @media (max-width: 480px) {
+    h1 {
+      font-size: 48px;
+    }
   }
 
-  h2{
+  h2 {
     font-family: var(--font-title);
     font-weight: 400;
-    font-size: xx-large;
+    font-size: 48px;
+    line-height: 1,1;
+  }
+  
+  /* Tablet */
+  @media (max-width: 1024px) {
+    h2 {
+      font-size: 40px;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    h2 {
+      font-size: 32px;
+    }
+  }
+  
+  /* Small Mobile */
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 24px;
+    }
   }
 }
+
+
 
 /* Buttons */
 @layer components {
@@ -93,3 +140,94 @@ body {
   }
 }
 
+
+
+/* .party {
+  animation: none; 
+}
+
+.party::before {
+  content: '';
+  position: fixed;
+  z-index: -1;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(180deg, 
+    #ff00cc, #3333ff, #00ffff, #00ff00, #ffff00, #ff6600, #ff0000, #ff00cc);
+  background-size: 100% 200%;
+  animation: partyGradient 10s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes partyGradient {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+.party body {
+  background: transparent; 
+  color: white;
+  transition: color 0.5s ease-in-out;
+}
+
+.party .btn,
+.party .card,
+.party .section {
+  transition: background-color 1s ease-in-out, color 1s ease-in-out, border-color 1s;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: white;
+  color: white;
+  backdrop-filter: blur(10px);
+}
+
+.party .btn {
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 5px white;
+  }
+  50% {
+    box-shadow: 0 0 15px white;
+  }
+}
+.party {
+  --background: #0f0f0f;
+  --foreground: #ffffff;
+  --primary: #ff0000;
+  --secondary: #00ffff;
+  
+  animation: discoVars 10s linear infinite;
+}
+
+@keyframes discoVars {
+  0% {
+    --foreground: #ff00cc;
+    --primary: #ff0000;
+    --secondary: #00ffff;
+  }
+  25% {
+    --foreground: #00ff99;
+    --primary: #ffff00;
+    --secondary: #ff00ff;
+  }
+  50% {
+    --foreground: #00ffff;
+    --primary: #ff00ff;
+    --secondary: #00ff00;
+  }
+  75% {
+    --foreground: #ffcc00;
+    --primary: #00ffff;
+    --secondary: #ff69b4;
+  }
+  100% {
+    --foreground: #ff00cc;
+    --primary: #ff0000;
+    --secondary: #00ffff;
+  }
+} */
