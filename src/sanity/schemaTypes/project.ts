@@ -3,6 +3,7 @@ import { defineType, defineField } from "sanity";
 export default defineType({
   name: "project",
   type: "document",
+  title: "Project",
   fields: [
     defineField({
       name: "title",
@@ -27,16 +28,16 @@ export default defineType({
       of: [{ type: "string" }],
     }),
     defineField({
-      title: 'Project Year',
-      name: 'year',
-      type: 'number',
+      title: "Project Year",
+      name: "year",
+      type: "number",
       validation: Rule => Rule.min(1900).max(new Date().getFullYear()),
     }),
     defineField({
       name: "projectUrl",
       type: "url",
       title: "Project URL (Optional)",
-        }),
+    }),
     defineField({
       name: "description",
       type: "text",
@@ -51,59 +52,89 @@ export default defineType({
       validation: Rule => Rule.required(),
     }),
 
-    // Main Image (mandatory)
+    // 🖼️ Flexible Final Result Media
     defineField({
-      name: "mainImage",
-      type: "image",
-      title: "Cover Image",
-      validation: Rule => Rule.required(),
+      name: "mainMedia",
+      type: "media",
+      title: "Final Result (Image or Video)",
     }),
 
-
+    // 📌 PROBLEM SECTION
     defineField({
-      name: "breakdown",
-      type: "array",
-      title: "Project Breakdown",
-      of: [
+      name: "problem",
+      type: "object",
+      title: "Problem Section",
+      fields: [
+        defineField({ name: "title", type: "string", title: "Title" }),
+        defineField({ name: "text", type: "text", title: "Text" }),
+        defineField({ name: "media", type: "media", title: "Image or Video" }),
+      ],
+    }),
+
+    // 📌 CONCEPT SECTION
+    defineField({
+      name: "concept",
+      type: "object",
+      title: "Concept Section",
+      fields: [
+        defineField({ name: "title", type: "string", title: "Title" }),
+        defineField({ name: "text", type: "text", title: "Text" }),
         defineField({
-          type: "object",
-          name: "breakdownSection",
-          title: "Breakdown Section",
-          fields: [
-            defineField({
-              name: "title",
-              type: "string",
-              title: "Section Title",
-            }),
-            defineField({
-              name: "text",
-              type: "text",
-              title: "Description",
-            }),
-            defineField({
-              name: "images",
-              type: "array",
-              title: "Supporting Images",
-              of: [{ type: "image" }],
-              options: {
-                layout: 'grid',
-              },
-            }),
-          ],
-          preview: {
-            select: {
-              title: 'title',
-              media: 'images.0',
-            },
-            prepare({ title, media }) {
-              return {
-                title: title ,
-                media,
-              };
-            },
-          },
+          name: "media",
+          type: "array",
+          title: "Concept Media (Images or Videos)",
+          of: [{ type: "media" }],
+          options: { layout: "grid" },
         }),
       ],
+    }),
+
+    // 📌 RESEARCH SECTION
+    defineField({
+      name: "research",
+      type: "object",
+      title: "Research Section",
+      fields: [
+        defineField({ name: "title", type: "string", title: "Title" }),
+        defineField({ name: "text", type: "text", title: "Text" }),
+        defineField({ name: "media", type: "media", title: "Image or Video" }),
+      ],
+    }),
+
+    // 📌 MAKING OF SECTION
+    defineField({
+      name: "makingOf",
+      type: "object",
+      title: "Making Of Section",
+      fields: [
+        defineField({ name: "title", type: "string", title: "Title" }),
+        defineField({ name: "text", type: "text", title: "Text" }),
+        defineField({
+          name: "media",
+          type: "array",
+          title: "Process Media (Images or Videos)",
+          of: [{ type: "media" }],
+          options: { layout: "grid" },
+        }),
+      ],
+    }),
+
+    // Optional Legacy Video (if needed elsewhere)
+    defineField({
+      name: "video",
+      type: "file",
+      title: "Main Video (Optional)",
+      options: {
+        accept: "video/*",
+      },
+    }),
+
+    // Navigation
+    defineField({
+      name: "nextProjectSlug",
+      type: "string",
+      title: "Slug of Next Project",
+      description: "Used to navigate to the next project manually",
     }),
   ],
 });

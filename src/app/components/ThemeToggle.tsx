@@ -1,84 +1,60 @@
-// 'use client';
+'use client';
 
-// import { useEffect, useState } from 'react';
-// import confetti from 'canvas-confetti';
+import { useEffect, useState } from 'react';
 
+type Theme = 'auto' | 'light' | 'dark' | 'party';
 
-// const themes = ['auto', 'light', 'dark', 'party'] as const;
-// type Theme = typeof themes[number];
+const ThemeToggle = () => {
+  const [theme, setTheme] = useState<Theme>('auto');
 
-// export default function ThemeToggle() {
-//   const [theme, setTheme] = useState<Theme>('auto');
-//   const [open, setOpen] = useState(false);
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme') as Theme | null;
+    const initialTheme = savedTheme || 'auto';
+    setTheme(initialTheme);
+    applyTheme(initialTheme);
 
-//   useEffect(() => {
-//     const storedTheme = localStorage.getItem('theme') as Theme | null;
-//     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-//     const resolved = storedTheme || 'auto';
-//     setTheme(resolved);
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = () => {
+      if (localStorage.getItem('theme') === 'auto') {
+        applyTheme('auto');
+      }
+    };
 
-//     const active = resolved === 'auto'
-//       ? prefersDark ? 'dark' : 'light'
-//       : resolved;
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
 
-//     document.documentElement.className = active;
+  const applyTheme = (mode: Theme) => {
+    const html = document.documentElement;
+    html.removeAttribute('data-theme');
 
-//     // Live system updates
-//     const listener = (e: MediaQueryListEvent) => {
-//       if (theme === 'auto') {
-//         document.documentElement.className = e.matches ? 'dark' : 'light';
-//       }
-//     };
-//     const media = window.matchMedia('(prefers-color-scheme: dark)');
-//     media.addEventListener('change', listener);
-//     return () => media.removeEventListener('change', listener);
-//   }, [theme]);
+    if (mode === 'auto') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      html.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    } else {
+      html.setAttribute('data-theme', mode);
+    }
+  };
 
-//   const switchTheme = (newTheme: Theme) => {
-//     setTheme(newTheme);
-//     setOpen(false);
+  const handleChange = (value: Theme) => {
+    localStorage.setItem('theme', value);
+    setTheme(value);
+    applyTheme(value);
+  };
 
-//     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-//     const finalTheme = newTheme === 'auto'
-//       ? prefersDark ? 'dark' : 'light'
-//       : newTheme;
+  return (
+    <select
+      value={theme}
+      onChange={(e) => handleChange(e.target.value as Theme)}
+      className="border-3 dark:border-white checked:hidden md:bg-[#D35400] text-white dark:bg-[#CDAA7D] dark:text-black 
+      font-secondtitle appearance-none hover:opacity-80 cursor-pointer rounded-full px-5 py-3"
+    >
+      <option value="auto">🌓</option>
+      <option value="light">🔆</option>
+      <option value="dark">🌛</option>
+      <option value="party">🎉</option>
+    </select>
+  );
+};
 
-//     document.documentElement.className = finalTheme;
-
-//     if (newTheme === 'auto') {
-//       localStorage.removeItem('theme');
-//     } else {
-//       localStorage.setItem('theme', newTheme);
-//     }
-
-//     if (newTheme === 'party') {
-//       confetti({ particleCount: 150, spread: 180, origin: { y: 0.6 } });
-//     }
-//   };
-
-//   return (
-//     <div className="relative">
-//       <button
-//         onClick={() => setOpen(!open)}
-//         className="px-3 py-1 rounded bg-[var(--primary)] text-white font-medium hover:opacity-90"
-//       >
-//         Theme: {theme}
-//       </button>
-//       {open && (
-//         <div className="absolute right-0 mt-2 w-36 rounded bg-white shadow-md z-50 text-black">
-//           {themes.map((t) => (
-//             <button
-//               key={t}
-//               onClick={() => switchTheme(t)}
-//               className={`block w-full text-left px-4 py-2 hover:bg-gray-200 ${
-//                 t === theme ? 'font-bold' : ''
-//               }`}
-//             >
-//               {t === 'party' ? 'Party 🎉' : t.charAt(0).toUpperCase() + t.slice(1)}
-//             </button>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
+export default ThemeToggle;

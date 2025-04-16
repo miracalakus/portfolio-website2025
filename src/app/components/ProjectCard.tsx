@@ -9,8 +9,19 @@ interface Project {
   _id: string;
   title: string;
   slug: { current: string };
-  mainImage?: { asset: { url: string } };
   category?: string;
+  mainMedia?: {
+    mediaType?: "image" | "video";
+    image?: {
+      asset: { url: string };
+    };
+    file?: {
+      asset: {
+        url: string;
+        _ref: string;
+      };
+    };
+  };
 }
 
 const FILTERS = [
@@ -20,15 +31,16 @@ const FILTERS = [
   { label: "Motion Design", value: "motion_design" },
 ];
 
-// Define your color pool
 const HOVER_COLORS = [
-  "bg-red-400",
-  "bg-blue-400",
-  "bg-green-400",
-  "bg-yellow-400",
-  "bg-pink-400",
-  "bg-purple-400",
-  "bg-teal-400",
+  "bg-[#F78E57]",
+  "bg-[#FF6B6B]",
+  "bg-[#F7C948]",
+  "bg-[#A3CB38]",
+  "bg-[#38ADA9]",
+  "bg-[#A29BFE]",
+  "bg-[#FF8CDA]",
+  "bg-[#FFA552]",
+  "bg-[#74B9FF]",
 ];
 
 export default function ProjectCard() {
@@ -43,12 +55,16 @@ export default function ProjectCard() {
         _id,
         title,
         slug,
-        mainImage {
-          asset -> {
-            url
+        category,
+        mainMedia {
+          mediaType,
+          image {
+            asset -> { url }
+          },
+          file {
+            asset -> { url, _ref }
           }
-        },
-        category
+        }
       }`);
       setProjects(data);
     }
@@ -61,7 +77,6 @@ export default function ProjectCard() {
       ? projects
       : projects.filter((project) => project.category === activeFilter);
 
-  // Pick a new random color each time a card is hovered
   const handleMouseEnter = (index: number) => {
     const randomIndex = Math.floor(Math.random() * HOVER_COLORS.length);
     setHoverColor(HOVER_COLORS[randomIndex]);
@@ -73,77 +88,100 @@ export default function ProjectCard() {
   };
 
   return (
-<div className="text-center py-10 px-4 sm:px-8 md:px-12">
-  <h1
-    id="work"
-    className="font-title text-5xl sm:text-7xl lg:text-9xl mb-8"
-  >
-    WORK
-  </h1>
-
-  <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
-    {FILTERS.map((filter) => (
-      <button
-        key={filter.value}
-        onClick={() => setActiveFilter(filter.value)}
-        className={`
-          font-subtitle text-lg sm:text-2xl md:text-3xl lg:text-4xl
-          cursor-pointer uppercase tracking-wide transition-colors duration-150 py-4 sm:py-6
-          ${
-            activeFilter === filter.value
-              ? "text-[#D35400] underline dark:text-[#CDAA7D]"
-              : "text-black hover:text-[#D35400] hover:underline dark:text-white dark:hover:text-[#CDAA7D]"
-          }
-        `}
+    <div className="text-center py-10 px-4 sm:px-8 md:px-12">
+      <h1
+        id="work"
+        className="font-title text-5xl sm:text-7xl lg:text-9xl mb-8"
       >
-        {filter.label}
-      </button>
-    ))}
-  </div>
+        WORK
+      </h1>
 
-  {/* Project Grid */}
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 mt-12">
-    {filteredProjects.map((project, index) => (
-      <Link
-        key={project._id}
-        href={`/project/${project.slug.current}`}
-        passHref
-      >
-        <div className="relative group overflow-hidden shadow-lg cursor-pointer">
-          {project.mainImage?.asset?.url && (
-            <div
-              className="relative w-full h-[300px] sm:h-[400px]"
-              onMouseEnter={() => handleMouseEnter(index)}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Image
-                src={project.mainImage.asset.url}
-                alt={project.title}
-                fill
-                className="object-cover"
-              />
-              <div
-                className={`absolute inset-0 flex p-4 transition-all duration-75 ${
-                  hoveredIndex === index
-                    ? `items-center justify-center ${hoverColor}`
-                    : "items-end justify-start bg-transparent"
-                }`}
-              >
-                <h2
-                  className={`font-subtitle text-white text-base sm:text-lg transition-all duration-500 ${
-                    hoveredIndex === index && "animate-slide-in"
-                  }`}
+      {/* Filter Buttons */}
+      <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
+        {FILTERS.map((filter) => (
+          <button
+            key={filter.value}
+            onClick={() => setActiveFilter(filter.value)}
+            className={`
+              font-subtitle leading-px text-lg sm:text-2xl md:text-3xl lg:text-4xl
+              cursor-pointer uppercase tracking-wide transition-colors duration-150 py-4 sm:py-6
+              ${
+                activeFilter === filter.value
+                  ? "text-[#D35400] underline dark:text-[#CDAA7D]"
+                  : "text-[#222222] hover:text-[#D35400] hover:underline dark:text-white dark:hover:text-[#CDAA7D]"
+              }
+            `}
+          >
+            {filter.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Project Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 mt-12 cursor-pointer">
+        {filteredProjects.map((project, index) => (
+          <Link
+            key={project._id}
+            href={`/project/${project.slug.current}`}
+            passHref
+          >
+            <div className="relative group overflow-hidden shadow-lg cursor-pointer">
+              {project.mainMedia && (
+                <div
+                  className="relative w-full h-[300px] sm:h-[400px]"
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onMouseLeave={handleMouseLeave}
                 >
-                  {project.title}
-                </h2>
-              </div>
-            </div>
-          )}
-        </div>
-      </Link>
-    ))}
-  </div>
-</div>
+                  {/* Image rendering */}
+                  {project.mainMedia.mediaType === "image" &&
+                    project.mainMedia.image?.asset?.url && (
+                      <Image
+                        src={project.mainMedia.image.asset.url}
+                        alt={project.title}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
 
+                  {/* Video rendering */}
+                  {project.mainMedia.mediaType === "video" &&
+                    project.mainMedia.file?.asset?.url && (
+                      <video
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className="object-cover w-full h-full absolute top-0 left-0"
+                      >
+                        <source
+                          src={project.mainMedia.file.asset.url}
+                          type="video/mp4"
+                        />
+                      </video>
+                    )}
+
+                  {/* Hover overlay */}
+                  <div
+                    className={`absolute inset-0 flex p-4 transition-all duration-75 ${
+                      hoveredIndex === index
+                        ? `items-center justify-center ${hoverColor}`
+                        : "items-end justify-start bg-transparent"
+                    }`}
+                  >
+                    <h2
+                      className={`font-subtitle font-[700] text-white text-base sm:text-lg transition-all duration-1000 ${
+                        hoveredIndex === index && "animate-slide-in"
+                      }`}
+                    >
+                      {project.title}
+                    </h2>
+                  </div>
+                </div>
+              )}
+            </div>
+          </Link>
+        ))}
+      </div>
+    </div>
   );
 }

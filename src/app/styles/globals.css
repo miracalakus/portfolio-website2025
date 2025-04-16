@@ -1,233 +1,137 @@
 @import "tailwindcss";
 
-.font-secontitle {
-  @apply [font-family:var(--font-montserrat)];
-}
+@variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
-.font-title {
-  @apply [font-family:var(--font-dmserifdisplay)];
-}
 
-.font-subtitle {
-  @apply [font-family:var(--font-poppins)];
-}
+/*  Font Classes  */
+@layer utilities {
+  .font-title {
+    font-family: var(--font-dmserifdisplay);
+  }
 
-.font-body {
-  @apply [font-family:var(--font-worksans)];
+  .font-subtitle {
+    font-family: var(--font-poppins);
+  }
+
+  .font-body {
+    font-family: var(--font-worksans);
+  }
+
+  .font-secondtitle {
+    font-family: var(--font-montserrat);
+  }
 }
 
 html,
 body {
   padding: 0;
   margin: 0;
-  scroll-behavior: smooth;
-}
- 
-
-/* Light Mode */
-:root {
-  --background: #EDEAE0;
-  --foreground: #D35400;
-  
-  /* Custom Colors */
-  --primary: #D35400;
-  --secondary: #A1A1A1;
-  
+  scroll-behavior:smooth;
 }
 
-/* Dark Mode */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #222222;
-    --foreground: #CDAA7D;
-
-    /* Dark Mode Colors */
-    --primary: #CDAA7D;
-    --secondary: #A1A1A1;
-  }
-}
-
-
-/* Base Styles */
+/*  Base Styles  */
 @layer base {
   body {
+    @apply 
+    transition-colors 
+    duration-300 
+    /* light mode */
+    bg-[#EDEAE0] 
+    text-[#D35400] 
+    /* dark mode */
+    dark:bg-[#222222] 
+    dark:text-[#CDAA7D];
     font-family: var(--font-text);
-    background-color: var(--background);
-    color: var(--foreground);
-    transition: background-color 0.3s, color 0.3s;
   }
 
   h1 {
-    font-family: var(--font-title);
-    font-weight: 700;
-    font-size: 128px;
-  }
-  
-  /* Tablet */
-  @media (max-width: 1024px) {
-    h1 {
-      font-size: 96px;
-    }
-  }
-  
-  /* Mobile */
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 64px;
-    }
-  }
-  
-  /* Small Mobile */
-  @media (max-width: 480px) {
-    h1 {
-      font-size: 48px;
-    }
+    @apply 
+    font-bold 
+    text-[128px] 
+    /* light mode */
+    text-[#D35400] 
+    /* dark mode */
+    dark:text-[#CDAA7D];
   }
 
   h2 {
-    font-family: var(--font-title);
-    font-weight: 400;
-    font-size: 48px;
-    line-height: 1,1;
+    @apply 
+    font-normal 
+    text-[48px] 
+    leading-tight 
+    /* light mode */
+    text-[#D35400] 
+    /* dark mode */
+    dark:text-[#CDAA7D];
   }
-  
-  /* Tablet */
+
   @media (max-width: 1024px) {
-    h2 {
-      font-size: 40px;
-    }
+    h1 { font-size: 96px; }
+    h2 { font-size: 40px; }
   }
-  
-  /* Mobile */
+
   @media (max-width: 768px) {
-    h2 {
-      font-size: 32px;
-    }
+    h1 { font-size: 64px; }
+    h2 { font-size: 32px; }
   }
-  
-  /* Small Mobile */
+
   @media (max-width: 480px) {
-    h2 {
-      font-size: 24px;
-    }
+    h1 { font-size: 48px; }
+    h2 { font-size: 24px; }
   }
 }
 
-
-
-/* Buttons */
+/*  Buttons */
 @layer components {
   .btn {
     @apply px-6 py-2 rounded-lg font-semibold transition-all;
   }
 
   .btn-primary {
-    background-color: var(--primary);
-    color: white;    
-  }
-
-  .btn-primary:hover {
-    opacity: 0.8;
+    @apply bg-[#D35400] text-white hover:opacity-80 dark:bg-[#CDAA7D];
   }
 
   .btn-secondary {
-    background-color: var(--secondary);
-    color: white;
-  }
-
-  .btn-secondary:hover {
-    opacity: 0.8;
+    @apply bg-[#A1A1A1] text-white hover:opacity-80;
   }
 }
 
+/* Party Mode  */
 
-
-/* .party {
-  animation: none; 
+@keyframes rgb-text {
+  0%   { color: #ff0000; }
+  16%  { color: #ff9900; }
+  33%  { color: #33ff00; }
+  50%  { color: #00ffff; }
+  66%  { color: #0066ff; }
+  83%  { color: #cc00ff; }
+  100% { color: #ff0000; }
 }
 
-.party::before {
-  content: '';
-  position: fixed;
-  z-index: -1;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: linear-gradient(180deg, 
-    #ff00cc, #3333ff, #00ffff, #00ff00, #ffff00, #ff6600, #ff0000, #ff00cc);
-  background-size: 100% 200%;
-  animation: partyGradient 10s linear infinite;
-  opacity: 0.5;
+@keyframes rgb-bg {
+  0%   { background-color: #222222; }
+  25%  { background-color: #ffffff; }
+  50%  { background-color: #222222; }
+  75%  { background-color: #ffffff; }
+  100% { background-color: #222222; }
 }
 
-@keyframes partyGradient {
-  0% {
-    background-position: 0% 0%;
-  }
-  100% {
-    background-position: 0% 100%;
-  }
-}
-
-.party body {
-  background: transparent; 
+/* 🎉 Party mode: full RGB madness */
+[data-theme="party"] body {
+  animation: rgb-bg 1s linear infinite;
   color: white;
-  transition: color 0.5s ease-in-out;
 }
 
-.party .btn,
-.party .card,
-.party .section {
-  transition: background-color 1s ease-in-out, color 1s ease-in-out, border-color 1s;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: white;
-  color: white;
-  backdrop-filter: blur(10px);
+[data-theme="party"] h1,
+[data-theme="party"] h2,
+[data-theme="party"] h3,
+[data-theme="party"] h4,
+[data-theme="party"] h5,
+[data-theme="party"] h6,
+[data-theme="party"] p,
+[data-theme="party"] span,
+[data-theme="party"] a {
+  animation: rgb-text 1s linear infinite;
+  text-shadow: 0 0 5px #fff, 0 0 10px #ff00ff;
 }
 
-.party .btn {
-  animation: pulseGlow 2s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 5px white;
-  }
-  50% {
-    box-shadow: 0 0 15px white;
-  }
-}
-.party {
-  --background: #0f0f0f;
-  --foreground: #ffffff;
-  --primary: #ff0000;
-  --secondary: #00ffff;
-  
-  animation: discoVars 10s linear infinite;
-}
-
-@keyframes discoVars {
-  0% {
-    --foreground: #ff00cc;
-    --primary: #ff0000;
-    --secondary: #00ffff;
-  }
-  25% {
-    --foreground: #00ff99;
-    --primary: #ffff00;
-    --secondary: #ff00ff;
-  }
-  50% {
-    --foreground: #00ffff;
-    --primary: #ff00ff;
-    --secondary: #00ff00;
-  }
-  75% {
-    --foreground: #ffcc00;
-    --primary: #00ffff;
-    --secondary: #ff69b4;
-  }
-  100% {
-    --foreground: #ff00cc;
-    --primary: #ff0000;
-    --secondary: #00ffff;
-  }
-} */

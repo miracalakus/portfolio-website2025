@@ -3,16 +3,27 @@ import { urlFor } from "../../../sanity/lib/image";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-interface ImageAsset {
+interface MediaAsset {
   asset: {
     _ref: string;
+    url?: string;
   };
 }
 
-interface Breakdown {
+interface Media {
+  file: MediaAsset;
+}
+
+interface SectionWithMedia {
   title?: string;
   text?: string;
-  images?: ImageAsset[];
+  media?: Media;
+}
+
+interface SectionWithMediaArray {
+  title?: string;
+  text?: string;
+  media?: Media[];
 }
 
 interface Project {
@@ -23,14 +34,18 @@ interface Project {
   software_code?: string[];
   description?: string;
   slug: { current: string };
-  mainImage: ImageAsset;
-  breakdown?: Breakdown[];
+  mainMedia?: Media;
+  problem?: SectionWithMedia;
+  concept?: SectionWithMediaArray;
+  research?: SectionWithMedia;
+  makingOf?: SectionWithMediaArray;
   video?: {
     asset?: {
       url?: string;
       _ref?: string;
     };
   };
+  nextProjectSlug?: string;
 }
 
 const CategoryTitles: Record<string, string> = {
@@ -38,6 +53,86 @@ const CategoryTitles: Record<string, string> = {
   ux_ui_design: "UX/UI Design",
   motion_design: "Motion Design",
 };
+
+// Utility to detect image by asset ref
+const isImage = (ref: string) => ref?.startsWith("image-");
+
+// Get Sanity file URL fallback
+const getSanityFileUrl = (ref: string): string => {
+  const [_, id, ext] = ref.split("-");
+  return `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${id}.${ext}`;
+};
+
+// Render either image or video based on file type
+const RenderMedia = ({ media }: { media: any }) => {
+  if (!media) return null;
+
+  // ✅ If explicitly marked as image
+  if (media.mediaType === "image" && media.image?.asset?._ref) {
+    const url = urlFor(media.image).url();
+    return (
+      <Image
+        src={url}
+        alt="Image"
+        width={1920}
+        height={1080}
+        className="w-full h-auto object-cover rounded-lg"
+      />
+    );
+  }
+
+  // ✅ If explicitly marked as video
+  if (media.mediaType === "video" && media.file?.asset?._ref) {
+    const ref = media.file.asset._ref;
+    const url = media.file.asset.url || getSanityFileUrl(ref);
+    return (
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-auto object-cover rounded-lg"
+      >
+        <source src={url} type="video/mp4" />
+      </video>
+    );
+  }
+
+  // ⚠️ Fallback if mediaType not set (legacy content)
+  if (media.file?.asset?._ref?.startsWith("image-")) {
+    const url = urlFor({ asset: { _ref: media.file.asset._ref } }).url();
+    return (
+      <Image
+        src={url}
+        alt="Image"
+        width={1600}
+        height={900}
+        className="w-full h-auto object-cover rounded-lg"
+      />
+    );
+  }
+
+  if (media.file?.asset?._ref?.startsWith("file-")) {
+    const ref = media.file.asset._ref;
+    const url = media.file.asset.url || getSanityFileUrl(ref);
+    return (
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="w-full h-auto object-cover rounded-lg"
+      >
+        <source src={url} type="video/mp4" />
+      </video>
+    );
+  }
+
+  return null;
+};
+
+
+
 
 export default async function ProjectPage(props: { params: Promise<{ slug: string }> }) {
   const { params } = props;
@@ -47,43 +142,82 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
     title,
     description,
     slug,
-    mainImage,
+    mainMedia {
+      mediaType,
+      image { asset },
+      file { asset }
+    },
     category,
     software_code,
     year,
     projectUrl,
-    breakdown[] {
+    problem {
       title,
       text,
-      images
+      media {
+        mediaType,
+        image { asset },
+        file { asset }
+      }
     },
-    video
+    concept {
+      title,
+      text,
+      media[] {
+        mediaType,
+        image { asset },
+        file { asset }
+      }
+    },
+    research {
+      title,
+      text,
+      media {
+        mediaType,
+        image { asset },
+        file { asset }
+      }
+    },
+    makingOf {
+      title,
+      text,
+      media[] {
+        mediaType,
+        image { asset },
+        file { asset }
+      }
+    },
+    video,
+    nextProjectSlug
   }`;
-
+  
   const project: Project | null = await client.fetch(query, { slug });
 
   if (!project) return notFound();
 
-  const videoUrl: string | null = project.video?.asset?.url
-    ? project.video.asset.url
-    : project.video?.asset?._ref
-    ? `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${project.video.asset._ref.split("-")[1]}.${project.video.asset._ref.split("-")[2]}`
-    : null;
+  // Fetch title for next project
+  let nextProjectTitle: string | undefined = undefined;
+  if (project.nextProjectSlug) {
+    nextProjectTitle = await client.fetch(
+      `*[_type == "project" && slug.current == $slug][0].title`,
+      { slug: project.nextProjectSlug }
+    );
+  }
 
   return (
-    <div className="container mx-auto px-4 py-10 space-y-50">
-      {/* Project Overview */}
+    <div className="container mx-auto px-4 py-10 space-y-24">
+      {/* Header */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         <div className="space-y-4">
-          <h1 className="font-title">{project.title}</h1>
+          <h1 className="font-title text-7xl">{project.title}</h1>
           <div className="font-subtitle space-y-2">
-            {project.category && (
+          {project.category && (
               <p>
                 {CategoryTitles[project.category] ||
                   project.category.replace(/_/g, " ")}
               </p>
             )}
-            {project.software_code && project.software_code.length > 0 && (
+            {Array.isArray(project.software_code) && project.software_code.length > 0 && (
               <p>{project.software_code.join(", ")}</p>
             )}
             {project.year && <p>{project.year}</p>}
@@ -99,67 +233,92 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
             )}
           </div>
         </div>
-        <div>
-          {project.description && (
-            <p className="font-body">{project.description}</p>
-          )}
-        </div>
+        {project.description && <p className="font-body mt-5">{project.description}</p>}
       </div>
 
-      {/* Main Image */}
-      <div className="w-full relative aspect-[16/9]">
-        {project.mainImage && (
-          <Image
-            src={urlFor(project.mainImage).url()}
-            alt={project.title}
-            fill
-            className="object-contain"
-            sizes="100vw"
-          />
-        )}
-      </div>
-
-      {/* Breakdown Section */}
-      <div className="space-y-5">
-        {project.breakdown && project.breakdown.length > 0 && (
-          <div>
-            {project.breakdown.map((section, index) => (
-              <div key={index} className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
-                  {section.title && <h2 className="font-title">{section.title}</h2>}
-                  {section.text && <p className="font-body">{section.text}</p>}
-                </div>
-
-                {section.images && section.images.length > 0 && (
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 mt-4">
-                    {section.images.map((img, i) => (
-                      <Image
-                        key={i}
-                        src={urlFor(img).url()}
-                        alt={`Breakdown image ${i + 1}`}
-                        width={300}
-                        height={200}
-                        className="rounded-lg"
-                      />
-                    ))}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Video Section */}
-      {videoUrl && (
-        <div className="mt-16">
-          <h2 className="text-2xl font-semibold mb-3">Project Video</h2>
-          <video controls className="w-full max-w-4xl rounded-lg shadow-md">
-            <source src={videoUrl} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+      {/* Main Media */}
+      {project.mainMedia && (
+        <div className="w-full aspect-[16/9] relative rounded-lg overflow-hidden">
+          <RenderMedia media={project.mainMedia} />
         </div>
       )}
+
+      {/* Problem Section */}
+      {project.problem?.title && (
+        <div className="space-y-6">
+  <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-6">
+  <p className="font-body text-left">{project.problem.text}</p>
+    <h1 className="font-title text-5xl md:text-right">{project.problem.title}</h1>
+    
+  </div>
+          {project.problem.media && (
+            <div className="w-full aspect-[16/9] relative">
+              <RenderMedia media={project.problem.media} />
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Concept Section */}
+      {project.concept?.title && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h2 className="font-title text-5xl">{project.concept.title}</h2>
+            <p className="font-body">{project.concept.text}</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {project.concept.media?.map((media, i) => (
+              <RenderMedia key={i} media={media} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Research Section */}
+      {project.research?.title && (
+        <div className="space-y-6">
+          <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-6">
+          <p className="font-body text-left">{project.research.text}</p>
+            <h1 className="font-title text-5xl md:text-right">{project.research.title}</h1>
+            
+          </div>
+          {project.research.media && (
+            <div className="w-full aspect-[16/9] relative">
+              <RenderMedia media={project.research.media} />
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Making Of Section */}
+      {project.makingOf?.title && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <h2 className="font-title text-5xl">{project.makingOf.title}</h2>
+            <p className="font-body">{project.makingOf.text}</p>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {project.makingOf.media?.map((media, i) => (
+              <RenderMedia key={i} media={media} />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Navigation */}
+      <div className="flex justify-between items-center mt-24 border-t pt-10">
+        <a href="/#work" className="text-blue-500 hover:underline text-lg">
+          ← Projects Overview
+        </a>
+        {project.nextProjectSlug && (
+          <a
+            href={`/projects/${project.nextProjectSlug}`}
+            className="text-blue-500 hover:underline text-lg"
+          >
+            Next Project → {nextProjectTitle || "Untitled"}
+          </a>
+        )}
+      </div>
     </div>
   );
 }
