@@ -2,6 +2,7 @@ import { client } from "../../../sanity/lib/client";
 import { urlFor } from "../../../sanity/lib/image";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 interface MediaAsset {
   asset: {
@@ -24,6 +25,12 @@ interface SectionWithMediaArray {
   title?: string;
   text?: string;
   media?: Media[];
+}
+
+interface FlexibleMedia {
+  mediaType?: "image" | "video";
+  image?: MediaAsset;
+  file?: MediaAsset;
 }
 
 interface Project {
@@ -54,17 +61,14 @@ const CategoryTitles: Record<string, string> = {
   motion_design: "Motion Design",
 };
 
-// Utility to detect image by asset ref
-const isImage = (ref: string) => ref?.startsWith("image-");
-
 // Get Sanity file URL fallback
 const getSanityFileUrl = (ref: string): string => {
-  const [_, id, ext] = ref.split("-");
+  const [, id, ext] = ref.split("-");
   return `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${id}.${ext}`;
 };
 
 // Render either image or video based on file type
-const RenderMedia = ({ media }: { media: any }) => {
+const RenderMedia = ({ media }: { media: FlexibleMedia }) => {
   if (!media) return null;
 
   // ✅ If explicitly marked as image
@@ -307,16 +311,16 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
 
       {/* Navigation */}
       <div className="flex justify-between items-center mt-24 border-t pt-10">
-        <a href="/#work" className="text-blue-500 hover:underline text-lg">
+        <Link href="/#work" className="text-blue-500 hover:underline text-lg">
           ← Projects Overview
-        </a>
+        </Link>
         {project.nextProjectSlug && (
-          <a
+          <Link
             href={`/projects/${project.nextProjectSlug}`}
             className="text-blue-500 hover:underline text-lg"
           >
             Next Project → {nextProjectTitle || "Untitled"}
-          </a>
+          </Link>
         )}
       </div>
     </div>
