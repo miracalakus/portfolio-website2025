@@ -237,7 +237,7 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
             )}
           </div>
         </div>
-        {project.description && <p className="font-body mt-5">{project.description}</p>}
+        {project.description && <p className="font-body whitespace-pre-line mt-5">{project.description}</p>}
       </div>
 
       {/* Main Media */}
@@ -251,7 +251,7 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
       {project.problem?.title && (
         <div className="space-y-6">
   <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-6">
-  <p className="font-body text-left">{project.problem.text}</p>
+  <p className="font-body text-left whitespace-pre-line">{project.problem.text}</p>
     <h1 className="font-title text-5xl md:text-right">{project.problem.title}</h1>
     
   </div>
@@ -268,7 +268,7 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <h2 className="font-title text-5xl">{project.concept.title}</h2>
-            <p className="font-body">{project.concept.text}</p>
+            <p className="font-body whitespace-pre-line">{project.concept.text}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {project.concept.media?.map((media, i) => (
@@ -282,7 +282,7 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
       {project.research?.title && (
         <div className="space-y-6">
           <div className="flex flex-col-reverse md:grid md:grid-cols-2 gap-6">
-          <p className="font-body text-left">{project.research.text}</p>
+          <p className="font-body text-left whitespace-pre-line">{project.research.text}</p>
             <h1 className="font-title text-5xl md:text-right">{project.research.title}</h1>
             
           </div>
@@ -299,7 +299,7 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <h2 className="font-title text-5xl">{project.makingOf.title}</h2>
-            <p className="font-body">{project.makingOf.text}</p>
+            <p className="font-body whitespace-pre-line">{project.makingOf.text}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {project.makingOf.media?.map((media, i) => (
