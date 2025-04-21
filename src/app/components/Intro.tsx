@@ -3,7 +3,7 @@ import { ArrowDown } from 'lucide-react';
 export default function Introduction() {
   return (
     <section className="h flex flex-col items-center justify-center text-center">
-      <div className="text-center px-32 mt-12 w-full">
+      <div className="text-center mt-12 w-full md:px-32">
         <h1 className="font-title px-2 leading-tight  md:font-title">Hi, I&apos;m Miraç Alakuş</h1> 
         <div className="px-4 py-8 sm:px-12 md:px-20 lg:px-40">
           {/* Full version for tablets and up */}
