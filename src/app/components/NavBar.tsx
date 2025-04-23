@@ -19,7 +19,7 @@ export default function Navbar() {
       {/* Desktop Nav */}
       <div className="hidden md:flex uppercase font-secondtitle items-center space-x-6">
         {/* <TestComp /> */}
-        <Link href="#work" className="hover:underline">Work</Link>
+        <Link href="/#work" className="hover:underline">Work</Link>
         <Link href="/" className="hover:underline">About Me</Link>
         <Link href="/" className="hover:underline">Contact</Link>
 

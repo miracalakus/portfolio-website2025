@@ -209,11 +209,11 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
   }
 
   return (
-    <div className="container mx-auto px-4 py-10 space-y-24 md:px-32">
+    <div className="container mx-auto px-4 py-10 space-y-24 md:px-10 l:px-32">
       {/* Header */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
         <div className="space-y-4">
-          <h1 className="font-title text-7xl">{project.title}</h1>
+          <h1 className="font-title md:text-5xl xl:text-7xl">{project.title}</h1>
           <div className="font-subtitle space-y-2">
           {project.category && (
               <p>
