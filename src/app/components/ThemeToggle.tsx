@@ -46,8 +46,7 @@ const ThemeToggle = () => {
     <select
       value={theme}
       onChange={(e) => handleChange(e.target.value as Theme)}
-      className="border-3 dark:border-white checked:hidden md:bg-[#D35400] text-white dark:bg-[#CDAA7D] dark:text-black 
-      font-secondtitle appearance-none hover:opacity-80 cursor-pointer rounded-full px-5 py-3"
+      className="btn"
     >
       <option value="auto">🌓</option>
       <option value="light">🔆</option>
