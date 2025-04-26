@@ -20,8 +20,8 @@ export default function Navbar() {
       <div className="hidden md:flex uppercase font-secondtitle items-center space-x-6">
         {/* <TestComp /> */}
         <Link href="/#work" className="hover:underline">Work</Link>
-        <Link href="/" className="hover:underline">About Me</Link>
-        <Link href="/" className="hover:underline">Contact</Link>
+        <Link href="/AboutMe" className="hover:underline">About Me</Link>
+        <Link href="/Contact" className="hover:underline">Contact</Link>
 
         {/* Social Icons */}
         <div className="flex space-x-3">
@@ -58,15 +58,15 @@ export default function Navbar() {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: '100%' }}
       transition={{ duration: 0.2, ease: 'easeOut' }}
-      className="fixed inset-0 bg-[#D35400] dark:bg-[#222222] p-8 flex flex-col gap-6 font-title md:hidden text-white text-4xl"
+      className="fixed inset-0 bg-[#D35400] dark:bg-[#222222] p-8 flex flex-col gap-6 font-secondtitle md:hidden text-white text-4xl"
     >
-      <Link href="#work" onClick={() => setIsOpen(false)} className="hover:underline">
+      <Link href="/#work" onClick={() => setIsOpen(false)} className="hover:underline">
       🎨Work
       </Link>
-      <Link href="/" onClick={() => setIsOpen(false)} className="hover:underline">
+      <Link href="/AboutMe" onClick={() => setIsOpen(false)} className="hover:underline">
       🙋‍♂️About Me
       </Link>
-      <Link href="/" onClick={() => setIsOpen(false)} className="hover:underline">
+      <Link href="/Contact" onClick={() => setIsOpen(false)} className="hover:underline">
         📞Contact
       </Link>
 

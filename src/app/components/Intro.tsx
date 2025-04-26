@@ -1,4 +1,4 @@
-import { ArrowDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import Link from 'next/link';
 
 export default function Introduction() {
@@ -19,7 +19,7 @@ export default function Introduction() {
       </div>
       {/* Scroll Indicator */}
       <Link href='#work' className="absolute bottom-10 animate-bounce hover:-translate-y-1/6">
-        <ArrowDown className="sm:w-8 sm:h-8 md:w-10 md:h-10" />
+        <ChevronDown className="sm:w-8 sm:h-8 md:w-10 md:h-10"  />
       </Link>
     </section>
   );

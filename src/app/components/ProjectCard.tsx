@@ -93,7 +93,7 @@ export default function ProjectCard() {
         id="work"
         className="font-title text-5xl sm:text-7xl lg:text-9xl mb-8"
       >
-        WORK
+        My Work
       </h1>
 
       {/* Filter Buttons */}
