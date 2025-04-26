@@ -226,14 +226,14 @@ export default async function ProjectPage(props: { params: Promise<{ slug: strin
             )}
             {project.year && <p>{project.year}</p>}
             {project.projectUrl && (
-              <a
+              <Link
                 href={project.projectUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"
               >
                 View Project
-              </a>
+              </Link>
             )}
           </div>
         </div>
