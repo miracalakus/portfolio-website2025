@@ -29,6 +29,7 @@ body {
   scroll-behavior:smooth;
 }
 
+
 /*  Base Styles  */
 @layer base {
   body {
@@ -84,16 +85,9 @@ body {
 /*  Buttons */
 @layer components {
   .btn {
-    @apply px-6 py-2 rounded-lg font-semibold transition-all;
-  }
-
-  .btn-primary {
-    @apply bg-[#D35400] text-white hover:opacity-80 dark:bg-[#CDAA7D];
-  }
-
-  .btn-secondary {
-    @apply bg-[#A1A1A1] text-white hover:opacity-80;
-  }
+    @apply border-3 border-black bg-[#D35400] dark:border-neutral-900 checked:hidden text-white dark:bg-[#CDAA7D] dark:text-black 
+     appearance-none hover:opacity-80 cursor-pointer rounded-full items-center inline-flex px-6 py-3 gap-2 ;
+     }
 }
 
 /* Party Mode  */
