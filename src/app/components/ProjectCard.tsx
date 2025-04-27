@@ -169,8 +169,8 @@ export default function ProjectCard() {
                     }`}
                   >
                     <h2
-                      className={`font-subtitle font-[700] text-white text-base sm:text-lg transition-all duration-1000 ${
-                        hoveredIndex === index && "animate-slide-in"
+                      className={`font-subtitle font-[700] text-white text-base sm:text-lg ${
+                        hoveredIndex === index && "scale-150"
                       }`}
                     >
                       {project.title}
