@@ -27,9 +27,9 @@ export default function AboutPage() {
         <div className="text-center space-y-4">
           <h1 className="md:text-7xl sm:text-3xl font-title">A Bit About Me</h1>
             <p className="xl:px-20 md:px-2 font-subtitle text-[#222222] dark:text-white">
-              I'm a UX/UI designer, front-end developer, and motion enthusiast with a passion for crafting smooth digital experiences. 
+              I&apos;m a UX/UI designer, front-end developer, and motion enthusiast with a passion for crafting smooth digital experiences. 
               Whether it&apos;s designing intuitive interfaces, bringing characters to life in 3D, or coding responsive layouts, 
-              I love blending creativity with technology. I'm always exploring new ways to make ideas feel alive — through smart design, 
+              I love blending creativity with technology. I&apos;m always exploring new ways to make ideas feel alive — through smart design, 
               thoughtful interaction, and a touch of motion.
           </p>
         </div>

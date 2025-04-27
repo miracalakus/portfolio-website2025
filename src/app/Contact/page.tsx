@@ -9,7 +9,7 @@ export default function ContactPage() {
       <div className="text-center space-y-4">
         <h1 className="md:text-7xl sm:text-3xl font-title">Get in Touch</h1>
         <h2 className="text-lg text-[#222222] font-subtitle dark:text-white">
-          Got a project, collaboration, or question? I'm always excited to meet new people and explore ideas.  
+          Got a project, collaboration, or question? I&apos;m always excited to meet new people and explore ideas.  
           Feel free to reach out — I’ll get back to you as soon as I can!
         </h2>
       </div>
