@@ -115,13 +115,13 @@ export default function ResumePage() {
 {/* Download PDF */}
     <div className='text-center'>
       <Link
-        href="/assets/CV.pdf"
+        href="/assets/CV_Mirac_Alakus.pdf"
         target="_blank"
         download
         className="btn font-subtitle"
         rel="noopener noreferrer"
       >
-        Download Resume
+        Download CV
         <Download className="w-5 h-5" />
       </Link>
     </div>
