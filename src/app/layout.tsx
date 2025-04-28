@@ -1,5 +1,6 @@
 import "./styles/globals.css";
 import { Montserrat, DM_Serif_Display, Poppins, Work_Sans } from 'next/font/google';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 import Navbar from "./components/NavBar";
 import Footer from "./components/Footer";
@@ -36,6 +37,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="flex flex-col min-h-screen ">
         <Navbar/>
         <main className="pt-20">{children}</main>
+        <SpeedInsights />
         <div className="mt-auto">
         <Footer/>
         </div>
