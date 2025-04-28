@@ -25,11 +25,13 @@ export default function ResumePage() {
           {
             title: 'Internship - Front-End Development - Squadra MLC',
             period: '2023-2024',
+            openByDefault: true,
             description:
             'During my internship at Squadra MLC, I took full ownership of both the UX/UI design and front-end development for the Powertext Lite project. Working closely with marketing specialists, I translated business needs into intuitive user flows, interactive wireframes, and a clean, user-friendly interface. I developed the front-end using Vue.js, focusing on reusable components and a seamless user experience. This project gave me real-world experience in collaborating with stakeholders and turning ideas into functional, client-ready applications.'
           },
           {
             title: 'Internship - Van de Ven Bouw en Ontwikkeling',
+            
             period: '2018-2019',
             description:
             'During this internship, I supported the construction site manager with daily coordination and site operations, gaining hands-on experience in construction processes, planning, and teamwork on active building projects.'
@@ -47,7 +49,7 @@ export default function ResumePage() {
             'Here I supported the project manager, helping coordinate with clients and subcontractors, gaining experience in project administration, communication, and construction project management.'
           },
         ].map((item, i) => (
-          <Disclosure key={i}>
+          <Disclosure defaultOpen={item.openByDefault} key={i}>
             {({ open }) => (
               <div>
                 <DisclosureButton className="w-full cursor-pointer flex justify-between items-center bg-neutral-100 dark:bg-neutral-800 px-4 py-3 rounded-lg text-left text-lg font-medium hover:bg-neutral-200 dark:hover:bg-neutral-700">
@@ -82,6 +84,7 @@ export default function ResumePage() {
           {
             title: 'Fontys - HBO ICT & Media Design, Bachelor',
             period: '2021 - Present',
+            openByDefault: true,
             description:
             'Throughout my studies in HBO ICT & Media Design, I developed strong skills in UX/UI design, user research methods, and front-end development. I learned to translate user needs into interactive prototypes, perform usability tests, and apply frameworks such as Nielsen Norman heuristics and CMD methods. On the development side, I built responsive applications using HTML, CSS, JavaScript, and frameworks like React and Vue. Projects combined creative concepting with technical execution, giving me a complete view of how design and technology come together to create user-centered digital experiences. Currently in the final phase of my Bachelor program, focusing on UX/UI design and front-end development.'
         },
@@ -92,7 +95,7 @@ export default function ResumePage() {
             'During this minor, I focused on 2D and 3D animation, covering key areas like storytelling, character design, rigging, lip-syncing, lighting, and rendering. I worked extensively in Blender and After Effects, learning to bring characters and environments to life through the animation principles. Through practical assignments, I developed a strong foundation in both technical execution and creative visual storytelling.'
           },
         ].map((item, i) => (
-          <Disclosure key={i}>
+          <Disclosure defaultOpen={item.openByDefault} key={i}>
             {({ open }) => (
               <div>
                 <DisclosureButton className="w-full cursor-pointer flex justify-between items-center bg-neutral-100 dark:bg-neutral-800 px-4 py-3 rounded-lg text-left text-lg font-medium hover:bg-neutral-200 dark:hover:bg-neutral-700">
