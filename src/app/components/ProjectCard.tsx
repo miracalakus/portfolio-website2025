@@ -170,7 +170,7 @@ export default function ProjectCard() {
                   >
                     <h2
                       className={`font-subtitle font-[700] text-white text-base sm:text-lg ${
-                        hoveredIndex === index && "scale-150"
+                        hoveredIndex === index && "text-xl sm:text-2xl md:text-3xl"
                       }`}
                     >
                       {project.title}
