@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 💼 Mirac Alakus — Portfolio Website
 
-## Getting Started
+A responsive, modern portfolio showcasing my work in UX/UI design, front-end development, and motion design.
 
-First, run the development server:
+> Built for performance, clarity, and creativity — blending design with development.
+
+---
+
+## 🌐 Live Demo
+
+🔗 [miracalakus.com](https://miracalakus.com)
+
+---
+
+## ⚙️ Tech Stack
+
+- [Next.js](https://nextjs.org/) (with **TypeScript**)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Sanity.io](https://www.sanity.io/) – CMS for managing projects
+- [Vercel](https://vercel.com/) – for deployment & hosting
+
+---
+
+## 🧰 Notable Libraries
+
+This project uses a range of modern libraries to enhance UX and maintainability:
+
+- [Framer Motion](https://www.framer.com/motion/) – UI animations
+- [Lucide React](https://lucide.dev/) – Icon system
+- [Headless UI](https://headlessui.dev/) – Accessible UI components (e.g., Disclosure)
+- [Formspree](https://formspree.io/) – for contact form handling
+- [Heroicons](https://heroicons.com/) – additional icons
+
+---
+
+## ✨ Features
+
+- CMS-powered dynamic project pages
+- Responsive design for all screen sizes
+- Category filters (UX/UI, Development, Motion)
+- Project support for images, video, and GIFs
+- Resume section with expandable items
+- Downloadable resume PDF
+- Contact form with confirmation feedback
+- Speed Insights integration (Vercel)
+- Clean footer and SEO-friendly setup
+
+---
+
+## 📌 Important Notice
+
+This project is my **personal portfolio**. If you wish to use this as inspiration or a base for your own, **please make sure to replace**:
+
+- My name
+- Personal content (images, project text, etc.)
+- Contact information (email, links, resume, etc.)
+
+📬 For questions, collaboration, or permission to reuse parts of this project, feel free to contact me:  
+**miracalakus@gmail.com**
+
+---
+
+## 🚀 Getting Started
+
+To run locally:
 
 ```bash
+# 1. Clone the repo (replace with your fork if needed)
+git clone https://github.com/YOUR_USERNAME/portfolio-website2025.git
+cd portfolio-website2025
+
+# 2. Install dependencies
+npm install
+
+# 3. Create environment variables
+cp .env.example .env.local
+# Fill in your Sanity Project ID, Dataset, and Token
+
+# 4. Run the development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 📌 Important Notice
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+This project is my **personal portfolio**. If you wish to use this as a base or reference, please make sure to replace all personal content, including:
 
-## Learn More
+- My name and email
+- Project descriptions, text, and resume details
+- Portfolio images or videos
 
-To learn more about Next.js, take a look at the following resources:
+📬 For questions or collaboration, contact me at:  
+**miracalakus@gmail.com**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 👨‍💻 Author
 
-## Deploy on Vercel
+**Miraç Alakus**  
+UX/UI Designer & Front-End Developer  
+🌐 [miracalakus.com](https://miracalakus.com)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛡 License
+
+This project is for educational and personal use only.  
+Please contact me before reusing significant portions.
