@@ -1,4 +1,4 @@
-# 💼 Mirac Alakus — Portfolio Website
+# 💼 Mirac Alakuş — Portfolio Website
 
 A responsive, modern portfolio showcasing my work in UX/UI design, front-end development, and motion design.
 
@@ -58,7 +58,30 @@ This project is my **personal portfolio**. If you wish to use this as inspiratio
 📬 For questions, collaboration, or permission to reuse parts of this project, feel free to contact me:  
 **miracalakus@gmail.com**
 
+## 📌 Important Notice
+
+This project is my **personal portfolio**. If you wish to use this as a base or reference, please make sure to replace all personal content, including:
+
+- My name and email
+- Project descriptions, text, and resume details
+- Portfolio images or videos
+
+📬 For questions or collaboration, contact me at:  
+**miracalakus@gmail.com**
+
 ---
+
+## 👨‍💻 Author
+
+**Miraç Alakuş**   
+🌐 [miracalakus.com](https://miracalakus.com)
+
+---
+
+## 🛡 License
+
+This project is for educational and personal use only.  
+Please contact me before reusing significant portions.
 
 ## 🚀 Getting Started
 
@@ -78,31 +101,3 @@ cp .env.example .env.local
 
 # 4. Run the development server
 npm run dev
-
----
-
-## 📌 Important Notice
-
-This project is my **personal portfolio**. If you wish to use this as a base or reference, please make sure to replace all personal content, including:
-
-- My name and email
-- Project descriptions, text, and resume details
-- Portfolio images or videos
-
-📬 For questions or collaboration, contact me at:  
-**miracalakus@gmail.com**
-
----
-
-## 👨‍💻 Author
-
-**Miraç Alakus**  
-UX/UI Designer & Front-End Developer  
-🌐 [miracalakus.com](https://miracalakus.com)
-
----
-
-## 🛡 License
-
-This project is for educational and personal use only.  
-Please contact me before reusing significant portions.
