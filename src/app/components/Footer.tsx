@@ -6,10 +6,7 @@ export default function Footer() {
   return (
     <footer className="w-full mt-16 border-t border-neutral-300 dark:border-neutral-700 py-8 text-center font-subtitle text-sm text-neutral-600 dark:text-neutral-400">
       <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-        {/* Left side */}
         <p>© {year} Miraç Alakuş. All rights reserved.</p>
-
-        {/* Right side */}
         <div className="flex space-x-4">
           <a
             href="https://github.com/miracalakus"

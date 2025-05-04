@@ -14,7 +14,7 @@ export default function AboutPage() {
       const resumeSection = document.getElementById("Resume");
       if (resumeSection) {
         const rect = resumeSection.getBoundingClientRect();
-        setShowScrollIcon(rect.top > window.innerHeight * .5); // Show until we scroll close to resume
+        setShowScrollIcon(rect.top > window.innerHeight * .5);
       }
     };
 
